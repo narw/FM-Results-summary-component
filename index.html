@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Frontend Mentor | Results summary component</title>
+
+    <style>
+      /* Josh's Custom CSS Reset: https://www.joshwcomeau.com/css/custom-css-reset/ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      * {
+        margin: 0;
+      }
+      body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      img,
+      picture,
+      video,
+      canvas,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+      }
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        overflow-wrap: break-word;
+      }
+      #root,
+      #__next {
+        isolation: isolate;
+      }
+      /* End of css reset*/
+      :root {
+        --clr-primary-100: hsla(0, 100%, 67%, 0.1);
+        --clr-primary-101: hsla(39, 100%, 56%, 0.1);
+        --clr-primary-102: hsla(234, 85%, 45%, 0.1);
+        --clr-primary-103: hsla(166, 100%, 37%, 0.1);        
+        --clr-primary-400: hsl(0, 100%, 67%);
+        --clr-primary-401: hsl(39, 100%, 56%);
+        --clr-primary-402: hsl(234, 85%, 45%);
+        --clr-primary-403: hsl(166, 100%, 37%);
+
+        --clr-neutral-100: hsl(0, 0%, 100%);
+        --clr-neutral-200: hsl(221, 100%, 96%);
+        --clr-neutral-400: hsl(241, 100%, 89%);
+        --clr-neutral-800: hsl(224, 30%, 27%);
+
+        --clr-gradient-400: hsl(252, 100%, 67%);
+        --clr-gradient-500: hsl(241, 81%, 54%);
+        --clr-gradient-600: hsla(256, 72%, 46%, 1);
+        --clr-gradient-601: hsla(241, 72%, 46%, 0);
+
+        --fw-regular: 500;
+        --fw-bold: 700;
+        --fw-extrabold: 800;
+      }
+
+      * {
+        /* outline: 1px solid red; */
+      }
+
+      body {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-weight: var(--fw-regular);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: var(--fw-extrabold);
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1.6rem;
+        font-weight: var(--fw-regular);
+      }
+      .card {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 350px);
+        max-width: 100%;
+        border-radius: 1.5em;
+        overflow: hidden;
+        box-shadow: 10px 10px 20px 0 var(--clr-neutral-200);
+      }
+
+      .card__left {
+        color: var(--clr-neutral-100);
+        background: linear-gradient(var(--clr-gradient-400), var(--clr-gradient-500));
+        border-radius: 1.5em;
+        display: flex;
+        flex-direction: column;
+        padding: 2em 3em;        
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        gap: 0.75em;
+      }
+      .card__left h2 {
+        color: var(--clr-neutral-400);        
+      }
+      .card__left p {
+        color: var(--clr-neutral-400);
+        font-weight: var(--fw-regular);
+        line-height: 1.2;
+        font-size: 0.9rem;
+      }
+      .card__right {
+        padding: 2em 2em;        
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      button {
+        border-radius: 2em;
+        font-size: 0.9rem;
+        font-weight: var(--fw-bold);
+        padding: 0.75em 1.5em;
+        margin-block: 1em;
+        background: var(--clr-neutral-800);
+        color: var(--clr-neutral-100);
+        border: 0;
+        cursor: pointer;
+      }
+      button:is(:focus-visible, :hover) {
+        background: linear-gradient(var(--clr-gradient-400), var(--clr-gradient-500));        
+      }
+      .bar {
+        background: var(--clr-neutral-800);
+        border-radius: 0.5em;
+        font-weight: var(--fw-bold);
+        padding: 0.625em;
+      }
+      .icon {
+        display: inline;
+        margin-right: 0.5em;
+      }
+      .flex-wrap {
+        display: flex;
+      }
+      .bar-reaction {
+        background: var(--clr-primary-100) ;
+        color: var(--clr-primary-400);
+      }
+      .bar-memory {
+        background: var(--clr-primary-101) ;
+        color: var(--clr-primary-401);
+      }
+      .bar-verbal {
+        background: var(--clr-primary-103) ;
+        color: var(--clr-primary-403);
+      }
+      .bar-visual {
+        background: var(--clr-primary-102) ;
+        color: var(--clr-primary-402);
+      }      
+      .score {
+        color: var(--clr-neutral-800);
+      }
+      .max-score {
+        color: grey;
+      }
+      .align-right {
+        margin-left: auto;
+      }
+      .card__leftscore {
+        background: linear-gradient(var(--clr-gradient-500), var(--clr-gradient-601));        
+        border-radius: 50%;
+        aspect-ratio: 1;
+        width: 160px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .card__leftscore .max-score {
+        color: var(--clr-neutral-400);
+      }
+      .card__leftscore .score {
+        color: var(--clr-neutral-100);
+        font-size: 4rem;
+        font-weight: var(--fw-extrabold);
+        margin: 0;
+        padding: 0;
+      }      
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card__left">
+        <h2>Your Result</h2>
+        <div class="card__leftscore">
+          <p class="score">76</p>
+          <p class="max-score">of 100</p>
+        </div>
+
+        <h3>Great</h3>
+        <p>
+          You scored higher than 65% of the people who have taken these tests.
+        </p>
+      </div>
+      <div class="card__right">
+        <h2>Summary</h2>
+
+        <div class="bar bar-reaction flex-wrap">
+          <img class="icon" src="assets/images/icon-reaction.svg" alt="" />
+          <span>Reaction</span>
+          <span class="score align-right">80</span><span class="max-score">&nbsp;/ 100</span>
+        </div>
+
+        <div class="bar bar-memory flex-wrap">
+          <img class="icon" src="assets/images/icon-memory.svg"  alt="" />
+          <span>Memory</span>
+          <span class="score align-right">92</span><span class="max-score">&nbsp;/ 100</span>
+        </div>
+        <div class="bar bar-verbal flex-wrap">
+          <img class="icon" src="assets/images/icon-verbal.svg"  alt="" />
+          <p>Verbal</p>
+          <span class="score align-right">61</span><span class="max-score">&nbsp;/ 100</span>
+        </div>
+
+        <div class="bar bar-visual flex-wrap">
+          <img class="icon" src="assets/images/icon-visual.svg"  alt="" />
+          <p>Visual</p>
+          <span class="score align-right">72</span><span class="max-score">&nbsp;/ 100</span>
+        </div>
+
+        <button>Continue</button>
+      </div>
+    </div>
+  </body>
+</html>
